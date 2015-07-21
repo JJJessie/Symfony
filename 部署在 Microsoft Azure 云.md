@@ -73,7 +73,6 @@ Microsoft Azure 允许您覆盖掉 **php.ini** 全球配置设置，通过在项
 expose_php = Off
 memory_limit = 256M
 upload_max_filesize = 10M
-
 ```
 
 这些设置均不需要覆盖。默认 PHP 配置已经足够好，所以只是一个例子来展示如何通过加载您的自定义文件 **.ini** 轻松地微调 PHP 内部设置。
@@ -91,8 +90,7 @@ Microsoft Azure 团队如今致力于在默认情况下启动 **intl** PHP 扩�
 为了在 **site/wwwroot**  目录中获取 **php_intl.dll** 文件，只需要浏览以下网址就可以连接到在线 **Kudu** 工具：
 
 ```
-s://[your-website-name].scm.azurewebsites.net
-
+https://[your-website-name].scm.azurewebsites.net
 ```
 
 **Kudu** 是一套管理应用程序的工具。它带有一个文件资源管理器，一个命令行提示，一个日志流以及一个配置设置总结页面。当然，这个部分只有当您注册进入到您的 Azure Website 账号才可以访问。
@@ -104,10 +102,9 @@ s://[your-website-name].scm.azurewebsites.net
 在控制台提示符中，输入一下三个命令来复制原有的 **php_intl.dll** 扩展文件到自定义网站 **ext/** 目录。这个新的目录必须在主目录 **site/wwwroot** 下创建。
 
 ```
- cd site\wwwroot
+$ cd site\wwwroot
 $ mkdir ext
 $ copy "D:\Program Files (x86)\PHP\v5.5\ext\php_intl.dll" ext
-
 ```
 
 整个过程和输出应该如此：
@@ -131,7 +128,7 @@ $ copy "D:\Program Files (x86)\PHP\v5.5\ext\php_intl.dll" ext
 首先，确保在您的终端使用以下命令使 Git 正确地安装在您本地机器中：
 
 ```
-1	$ git --version
+$ git --version
 
 ```
 
@@ -209,6 +206,7 @@ $ php -d extension=php_intl.dll composer.phar install
 所显示的 MySQL 数据库设置应该是和下面代码相似的一些东西。当然，每一个值取决于您的配置。
 
 ```
+
 Database=mysymfonyMySQL;Data Source=eu-cdbr-azure-north-c.cloudapp.net;User Id=bff2481a5b6074;Password=bdf50b42
 
 ```
