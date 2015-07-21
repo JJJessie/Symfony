@@ -170,6 +170,7 @@ $ copy "D:\Program Files (x86)\PHP\v5.5\ext\php_intl.dll" ext
 ```
 git remote add azure https://<username>@<your-website-name>.scm.azurewebsites.net:443/<your-website-name>.git
 $ git push azure master
+
 ```
 
 不要忘记替换值，即在您的 Azure Website 面板上的 **Deployment** 展示的默认设置下由 **<** and **>** 封闭的值。**git remote** 命令连接了 Azure Website 远程 Git 存储库并分配其一个替换入口 **azure**。第二个 **git push** 命令启动所有对您的远程 **azure** Git 存储库的远程 **master** 分支的提交。
@@ -188,13 +189,14 @@ PHP 已被配置，您的代码也已用 Git 启动。最后一步就是来配�
  cd site\wwwroot
 $ curl -sS https://getcomposer.org/installer | php
 $ php -d extension=php_intl.dll composer.phar install
+
 ```
 
 **curl** 命令检索并下载 Composer 命令行工具并在根目录 **site/wwwroot** 安装。然后，运行 Composer 命令下载并安装所有必要的三方库。
 
 这样可能会花费一些时间，取决于您配置在 **composer.json** 文件中第三方依赖的数量。
 
-	**-d** 开关允许您快速地重置或添加任何 **php.ini** 设置。在这个命令中，我们强制 PHP 使用 **intl** 扩展，因为此时此刻不是在 Azure Website 默认情况下启动的。不久，将不再需要 **-d** 选项因为 Microsoft 会在默认情况下启动 **intl** 扩展。
+**-d** 开关允许您快速地重置或添加任何 **php.ini** 设置。在这个命令中，我们强制 PHP 使用 **intl** 扩展，因为此时此刻不是在 Azure Website 默认情况下启动的。不久，将不再需要 **-d** 选项因为 Microsoft 会在默认情况下启动 **intl** 扩展。
 
 在 **composer install** 命令的结尾，系统将提示您填写一些 Symfony 设置的值，比如说数据库证书，区域设置，邮件程序证书，CSRF 保护盾牌等等。这些参数来自 **app/config/parameters.yml.dist** 文件。
 
@@ -244,6 +246,7 @@ Database=mysymfonyMySQL;Data Source=eu-cdbr-azure-north-c.cloudapp.net;User Id=b
     </rewrite>
   </system.webServer>
 </configuration>
+
 ```
 
 不要忘记回答所有的问题。为 **secret** 变量设置一个独立任意的字符串是很重要的。对于邮件程序配置来说，Azure Website 不提供一个内置的邮件程序服务。如果您的应用程序需要发送邮件，那么您应该考虑配置一些其他三方的邮件服务的主机名和证书。
@@ -254,6 +257,7 @@ Database=mysymfonyMySQL;Data Source=eu-cdbr-azure-north-c.cloudapp.net;User Id=b
 
 ```
 $ php app/console doctrine:schema:update --force
+
 ```
 这个命令为您的 MySQL 数据库建立表格和表单。如果您的 Symfony 应用程序比起基本的 Symfony 标准版本更复杂一些，您或许需要附加的命令来执行建立。（参见 [How to Deploy a Symfony Application](http://symfony.com/doc/current/cookbook/deployment/tools.html)）
 
@@ -261,6 +265,7 @@ $ php app/console doctrine:schema:update --force
 
 ```
 http://<your-website-name>.azurewebsites.net/web/app.php
+
 ```
 如果 Symfony 是正确安装的，您应该看一下您的 Symfony 应用程序显示的首页。
 
@@ -270,6 +275,7 @@ http://<your-website-name>.azurewebsites.net/web/app.php
 为了做这件事，创造并部署（参见关于 Git 前面的部分）以下 **web.config** 文件。这个文件必须位于 **composer.json** 文件旁边的根项目中。这个文件是 Microsoft IIS Server 等同于 Apache 著名的 **.htaccess** 文件。对于一个 Symfony 应用程序来说，用以下内容配置：
 
 ```
+
 <!-- web.config -->
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
